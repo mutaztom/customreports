@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<rep:root
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:rep="null"
+        xsi:schemaLocation="com.rationalteam /WEB-INF/reports.xsd" xmlns:p="null">
+    <rep:maincat rep:category="Standard Reports" rep:arname="التقارير الرسمية">
+        <rep:report hasOption="false">
+            <rep:repid>1</rep:repid>
+            <rep:title>IMF All Import Duty</rep:title>
+            <rep:repname>imfullimduty</rep:repname>
+            <rep:arname>التقرير الكلي لرسم الوارد لصندوق النقد الدولي</rep:arname>
+            <rep:desc>International Monetry Fund All Duties</rep:desc>
+            <rep:ardesc>التقرير الكلي لرسم الوارد لصندوق النقد الدولي</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>2</rep:repid>
+            <rep:title>IMF All Producs Groups</rep:title>
+            <rep:repname>imfallprod</rep:repname>
+            <rep:desc>IMF grouped by products groups</rep:desc>
+            <rep:arname>التقرير الكلي لرسم الوارد بالمجموعات السلعية</rep:arname>
+            <rep:ardesc>التقرير الكلي لرسم الوارد بالمجموعات السلعية</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>3</rep:repid>
+            <rep:title>IMD Tax Rates Analysis</rep:title>
+            <rep:repname>imdtaxrateanal</rep:repname>
+            <rep:desc>IMD Tax Rates Analysis</rep:desc>
+            <rep:arname>تقرير رسم الوارد</rep:arname>
+            <rep:ardesc>تقرير رسم الوارد</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>4</rep:repid>
+            <rep:title>IMD Zero Rated BreakDown</rep:title>
+            <rep:repname>imdzeroratedbdn</rep:repname>
+            <rep:desc>IMD Losses grouped by Causes</rep:desc>
+            <rep:arname>تقرير الفاقد الإيرادي لرسم الوارد بالأسباب</rep:arname>
+            <rep:ardesc>تقرير الفاقد الإيرادي لرسم الوارد بالأسباب</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>5</rep:repid>
+            <rep:title>VAT Tax Rates Analysis</rep:title>
+            <rep:repname>vatanal</rep:repname>
+            <rep:desc>Value Added Tax Analysis</rep:desc>
+            <rep:arname>تقرير القيمة المضافة</rep:arname>
+            <rep:ardesc>تقرير القيمة المضافة</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>6</rep:repid>
+            <rep:title>VAT Zero Rated BreakDown</rep:title>
+            <rep:repname>vatzeroratedbdn</rep:repname>
+            <rep:desc>VAT Losses grouped by causes</rep:desc>
+            <rep:arname>تقرير الفاقد الإيرادي للقيمة المضافة بالأسباب</rep:arname>
+            <rep:ardesc>تقرير الفاقد الإيرادي للقيمة المضافة بالأسباب</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>7</rep:repid>
+            <rep:title>ADT Tax Rates Analysis</rep:title>
+            <rep:repname>adtratesanal</rep:repname>
+            <rep:desc>Additional Tax Rates Analysis</rep:desc>
+            <rep:arname>تقرير الرسم الإضافي</rep:arname>
+            <rep:ardesc>تقرير الرسم الإضافي</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>8</rep:repid>
+            <rep:title>ADT Zero Rated BreakDown</rep:title>
+            <rep:repname>adtzeroratedbd</rep:repname>
+            <rep:desc>ADT Losses grouped by causes</rep:desc>
+            <rep:arname>تقرير الفاقد الإيرادي للرسم الإضافي بالأسباب</rep:arname>
+            <rep:ardesc>تقرير الرسم الإضافي</rep:ardesc>
+        </rep:report>
+    </rep:maincat>
+    <rep:maincat rep:category="Imports Reports" rep:arname="تقارير الوارد">
+        <rep:report hasOption="false">
+            <rep:repid>9</rep:repid>
+            <rep:title>IMF Zero Rate</rep:title>
+            <rep:repname>imfzerorate</rep:repname>
+            <rep:desc>IMF Import Duty Rate Analysis</rep:desc>
+            <rep:arname>تحليل الفئة الصفرية والإعفاءات لرسم الوارد</rep:arname>
+            <rep:ardesc>تحليل الفئة الصفرية والإعفاءات لرسم الوارد</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>10</rep:repid>
+            <rep:title>IMF Import Duty Rate Analysis</rep:title>
+            <rep:repname>imfrateanal</rep:repname>
+            <rep:desc>Distribution of Import Value on Tariff Rate</rep:desc>
+            <rep:arname>توزيع قيمة الواردات</rep:arname>
+            <rep:ardesc>توزيع قيمة الواردات</rep:ardesc>
+        </rep:report>
+        <rep:report>
+            <rep:repid>11</rep:repid>
+            <rep:title>IMF Import Duty Rate Analysis</rep:title>
+            <rep:repname>imfratefreaanal</rep:repname>
+            <rep:desc>Granted Exmption for Import Duty Rates According to Rates</rep:desc>
+            <rep:arname>الواردات المعفاة من الرسوم الجمركية حسب فئات الرسم</rep:arname>
+            <rep:ardesc>الواردات المعفاة من الرسوم الجمركية حسب فئات الرسم</rep:ardesc>
+        </rep:report>
+        <rep:report>
+            <rep:repid>12</rep:repid>
+            <rep:title>IMF Import Duty Rate Analysis</rep:title>
+            <rep:repname>imfexmp</rep:repname>
+            <rep:repname>Granted Exmption for Import Duty Rates According to Exemption Type</rep:repname>
+            <rep:desc>Granted Exmption for Import Duty Rates According to Exemption Type</rep:desc>
+            <rep:arname>الواردات المعفاة من الرسوم الجمركية حسب نوع الإعفاء</rep:arname>
+            <rep:ardesc>الواردات المعفاة من الرسوم الجمركية حسب نوع الإعفاء</rep:ardesc>
+        </rep:report>
+        <rep:report>
+            <rep:repid>13</rep:repid>
+            <rep:title>Value Subject VAT Imports</rep:title>
+            <rep:repname>vsvatimports</rep:repname>
+            <rep:desc>Value Subject to Value Added Tax Imports</rep:desc>
+            <rep:arname>قيمة الواردات الخاضعة لضريبة القيمة المضافة</rep:arname>
+            <rep:ardesc>قيمة الواردات الخاضعة لضريبة القيمة المضافة</rep:ardesc>
+        </rep:report>
+        <rep:report>
+            <rep:repid>14</rep:repid>
+            <rep:title>Exemptions VAT on Imports</rep:title>
+            <rep:repname>vatexpimports</rep:repname>
+            <rep:desc>Exemptions from Value Added Tax on Imports</rep:desc>
+            <rep:arname>الإعفاءات من ضريبة القيمة المضافة</rep:arname>
+            <rep:ardesc>الإعفاءات من ضريبة القيمة المضافة</rep:ardesc>
+        </rep:report>
+        <rep:report>
+            <rep:repid>15</rep:repid>
+            <rep:title>ATD Imported Commodities</rep:title>
+            <rep:repname>atdimported</rep:repname>
+            <rep:desc>Additional Tax Duty on Imported Commodities</rep:desc>
+            <rep:arname>الرسم الإضافي على السلع المستوردة</rep:arname>
+            <rep:ardesc>الرسم الإضافي على السلع المستوردة</rep:ardesc>
+        </rep:report>
+        <rep:report>
+            <rep:repid>16</rep:repid>
+            <rep:title>Exemted Imports</rep:title>
+            <rep:repname>exmptedvatrev</rep:repname>
+            <rep:desc>Exemted Imports from Additional Tax and Revenue Exemptions</rep:desc>
+            <rep:arname>قيمة الواردات العفاة من الرسم الإضافي و الإعفاءات الممنوحة</rep:arname>
+            <rep:ardesc>قيمة الواردات العفاة من الرسم الإضافي و الإعفاءات الممنوحة</rep:ardesc>
+        </rep:report>
+    </rep:maincat>
+    <rep:maincat rep:category="Export Reports" rep:arname="تقارير الصادر">
+        <rep:report>
+            <rep:repid>17</rep:repid>
+            <rep:title>Exports Commodities (Group)</rep:title>
+            <rep:repname>expcommod</rep:repname>
+            <rep:desc>Exports Commodities (Group)</rep:desc>
+            <rep:arname>سلع الصادر(بالمجموعة السلعية)</rep:arname>
+            <rep:ardesc>سلع الصادر(بالمجموعة السلعية)</rep:ardesc>
+        </rep:report>
+        <rep:report>
+            <rep:repid>18</rep:repid>
+            <rep:title>Exports Commodities (by Products)</rep:title>
+            <rep:repname>expcommodbyprod</rep:repname>
+            <rep:desc>Exports Commodities (Grouped by Products)</rep:desc>
+            <rep:arname>سلع الصادر (بالسلعة)</rep:arname>
+            <rep:ardesc>سلع الصادر (بالسلعة)</rep:ardesc>
+        </rep:report>
+    </rep:maincat>
+    <rep:maincat rep:category="Trade Balance" rep:arname="الميزان التجاري">
+        <rep:report>
+            <rep:repid>19</rep:repid>
+            <rep:title>Trade balance compare prev.</rep:title>
+            <rep:repname>tbcompareyear</rep:repname>
+            <rep:desc>Trade balance between the Current Year and Last Year</rep:desc>
+            <rep:arname>الميزان التجاري بين السنة الحالية و السنة الماضية (لشهر معين)</rep:arname>
+            <rep:ardesc>الميزان التجاري بين السنة الحالية و السنة الماضية (لشهر معين)</rep:ardesc>
+        </rep:report>
+    </rep:maincat>
+    <rep:maincat rep:category="General Financial Performance" rep:arname="تقارير الأداء المالي">
+        <rep:report>
+            <rep:repid>20</rep:repid>
+            <rep:title>General Financial Performance</rep:title>
+            <rep:repname>genfinanperformance</rep:repname>
+            <rep:desc>General Financial Performance</rep:desc>
+            <rep:arname>الأداء المالي العام</rep:arname>
+            <rep:ardesc>الأداء المالي العام
+            </rep:ardesc>
+        </rep:report>
+        <rep:report>
+            <rep:repid>21</rep:repid>
+            <rep:title>Performance in Detaileds (GFS)</rep:title>
+            <rep:repname>performancedet</rep:repname>
+            <rep:desc>Performance in Detailed Items According to (GFS) System</rep:desc>
+            <rep:arname>الأداء بالبنود التفصيلية وفقاً لنظام (GFS)</rep:arname>
+            <rep:ardesc>الأداء بالبنود التفصيلية وفقاً لنظام (GFS)
+            </rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="true">
+            <rep:repid>22</rep:repid>
+            <rep:title>Monthly and Accumulative Total Value of Imports</rep:title>
+            <rep:repname>accumtotalimp</rep:repname>
+            <rep:desc>Monthly and Accumulative Total Value of Imports</rep:desc>
+            <rep:arname>الأداء الفعلي لقيمة الواردات الكلية</rep:arname>
+            <rep:ardesc>الأداء الفعلي لقيمة الواردات الكلية</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="true">
+            <rep:repid>23</rep:repid>
+            <rep:title>Monthly and Accumulative Value of Taxable Imports</rep:title>
+            <rep:repname>taxableimports</rep:repname>
+            <rep:desc>The Actual Performance of The Value of Total Imports and Taxable Imports</rep:desc>
+            <rep:arname>الأداء الفعلي لقيمة الواردات الخاضعة للرسوم الجمركية</rep:arname>
+            <rep:ardesc>الأداء الفعلي لقيمة الواردات الخاضعة للرسوم الجمركية</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="true">
+            <rep:repid>24</rep:repid>
+            <rep:title>Total Value of Imports between the Current Year and Last Year</rep:title>
+            <rep:repname>curlasttotalimports</rep:repname>
+            <rep:desc>The Actual Performance of The Value of Total Imports and Taxable Imports</rep:desc>
+            <rep:arname>قيمة الواردات الكلية بين السنة الحالية و السنة الماضية (لشهر معين)</rep:arname>
+            <rep:ardesc>قيمة الواردات الكلية بين السنة الحالية و السنة الماضية (لشهر معين)</rep:ardesc>
+        </rep:report>
+    </rep:maincat>
+    <rep:maincat rep:category="Risk Reports" rep:arname="تقارير المخاطر">
+        <rep:report hasOption="true">
+            <rep:repid>25</rep:repid>
+            <rep:title>S001</rep:title>
+            <rep:repname>s001</rep:repname>
+            <rep:desc>S001</rep:desc>
+            <rep:arname>التعديلات التي تمت في الشهادة</rep:arname>
+            <rep:ardesc>التعديلات التي تمت في الشهادة</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="true">
+            <rep:repid>26</rep:repid>
+            <rep:title>S002</rep:title>
+            <rep:repname>s002</rep:repname>
+            <rep:desc>S002</rep:desc>
+            <rep:arname>القوائم المدرج عليها الرقم الضريبي</rep:arname>
+            <rep:ardesc>القوائم المدرج عليها الرقم الضريبي</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="true">
+            <rep:repid>27</rep:repid>
+            <rep:title>S003</rep:title>
+            <rep:repname>S003</rep:repname>
+            <rep:desc>S003</rep:desc>
+            <rep:arname>نسب المسارب</rep:arname>
+            <rep:ardesc>نسب المسارب</rep:ardesc>
+        </rep:report>
+    </rep:maincat>
+
+
+</rep:root>
+
+
