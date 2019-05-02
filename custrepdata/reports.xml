@@ -42,61 +42,61 @@ and open the template in the editor.
         </rep:report>
         <rep:report hasOption="false">
             <rep:repid>5</rep:repid>
-            <rep:title>VAT Tax Rates Analysis</rep:title>
+            <rep:title> IMD Zero Rated Analysis</rep:title>
             <rep:repname>vatanal</rep:repname>
-            <rep:desc>Value Added Tax Analysis</rep:desc>
+            <rep:desc>IMD Zero Rated Analysis</rep:desc>
+            <rep:arname>تقرير رسم الوارد الفئة الصفرية</rep:arname>
+            <rep:ardesc>تقرير رسم الوارد الفئة الصفرية</rep:ardesc>
+        </rep:report>
+        <rep:report hasOption="false">
+            <rep:repid>6</rep:repid>
+            <rep:title>VAT Tax Rates Analysis</rep:title>
+            <rep:repname>taxrateanalysis</rep:repname>
+            <rep:desc>VAT Tax Rates Analysis</rep:desc>
             <rep:arname>تقرير القيمة المضافة</rep:arname>
             <rep:ardesc>تقرير القيمة المضافة</rep:ardesc>
         </rep:report>
         <rep:report hasOption="false">
-            <rep:repid>6</rep:repid>
-            <rep:title>VAT Zero Rated BreakDown</rep:title>
-            <rep:repname>vatzeroratedbdn</rep:repname>
-            <rep:desc>VAT Losses grouped by causes</rep:desc>
-            <rep:arname>تقرير الفاقد الإيرادي للقيمة المضافة بالأسباب</rep:arname>
-            <rep:ardesc>تقرير الفاقد الإيرادي للقيمة المضافة بالأسباب</rep:ardesc>
-        </rep:report>
-        <rep:report hasOption="false">
             <rep:repid>7</rep:repid>
-            <rep:title>ADT Tax Rates Analysis</rep:title>
-            <rep:repname>adtratesanal</rep:repname>
-            <rep:desc>Additional Tax Rates Analysis</rep:desc>
-            <rep:arname>تقرير الرسم الإضافي</rep:arname>
-            <rep:ardesc>تقرير الرسم الإضافي</rep:ardesc>
+            <rep:title>VAT Cause of Loss</rep:title>
+            <rep:repname>vatcauseofloss</rep:repname>
+            <rep:desc>VAT Cause of Loss</rep:desc>
+            <rep:arname>تقرير الفاقد الضريبي للقيمة المضافة</rep:arname>
+            <rep:ardesc>تقرير الفاقد الضريبي للقيمة المضافة</rep:ardesc>
         </rep:report>
         <rep:report hasOption="false">
             <rep:repid>8</rep:repid>
-            <rep:title>ADT Zero Rated BreakDown</rep:title>
-            <rep:repname>adtzeroratedbd</rep:repname>
-            <rep:desc>ADT Losses grouped by causes</rep:desc>
-            <rep:arname>تقرير الفاقد الإيرادي للرسم الإضافي بالأسباب</rep:arname>
-            <rep:ardesc>تقرير الرسم الإضافي</rep:ardesc>
+            <rep:title>Vat Zerorated Analysis</rep:title>
+            <rep:repname>vatzeroratedanalysis</rep:repname>
+            <rep:desc>Vat Zerorated Analysis</rep:desc>
+            <rep:arname>تقرير القيمة المضافة الفئة الصفرية</rep:arname>
+            <rep:ardesc>تقرير القيمة المضافة الفئة الصفرية</rep:ardesc>
         </rep:report>
     </rep:maincat>
     <rep:maincat rep:category="Imports Reports" rep:arname="تقارير الوارد">
         <rep:report hasOption="false">
             <rep:repid>9</rep:repid>
-            <rep:title>IMF Zero Rate</rep:title>
-            <rep:repname>imfzerorate</rep:repname>
-            <rep:desc>IMF Import Duty Rate Analysis</rep:desc>
-            <rep:arname>تحليل الفئة الصفرية والإعفاءات لرسم الوارد</rep:arname>
-            <rep:ardesc>تحليل الفئة الصفرية والإعفاءات لرسم الوارد</rep:ardesc>
+            <rep:title>ADT Tax Rates Analysis</rep:title>
+            <rep:repname>adttaxratesanalysis</rep:repname>
+            <rep:desc>ADT Tax Rates Analysis</rep:desc>
+            <rep:arname>تقرير الرسم الإضافي</rep:arname>
+            <rep:ardesc>تقرير الرسم الإضافي</rep:ardesc>
         </rep:report>
         <rep:report hasOption="false">
             <rep:repid>10</rep:repid>
-            <rep:title>IMF Import Duty Rate Analysis</rep:title>
-            <rep:repname>imfrateanal</rep:repname>
-            <rep:desc>Distribution of Import Value on Tariff Rate</rep:desc>
-            <rep:arname>توزيع قيمة الواردات</rep:arname>
-            <rep:ardesc>توزيع قيمة الواردات</rep:ardesc>
+            <rep:title>ADT Cause of Loss</rep:title>
+            <rep:repname>adtcauseofloss</rep:repname>
+            <rep:desc>ADT Cause of Loss</rep:desc>
+            <rep:arname>الفاقد الضريبي للرسم الإضافي</rep:arname>
+            <rep:ardesc>الفاقد الضريبي للرسم الإضافي</rep:ardesc>
         </rep:report>
         <rep:report>
             <rep:repid>11</rep:repid>
-            <rep:title>IMF Import Duty Rate Analysis</rep:title>
-            <rep:repname>imfratefreaanal</rep:repname>
-            <rep:desc>Granted Exmption for Import Duty Rates According to Rates</rep:desc>
-            <rep:arname>الواردات المعفاة من الرسوم الجمركية حسب فئات الرسم</rep:arname>
-            <rep:ardesc>الواردات المعفاة من الرسوم الجمركية حسب فئات الرسم</rep:ardesc>
+            <rep:title>ADT Zerorated Analysis</rep:title>
+            <rep:repname>adtzeroratedanalysis</rep:repname>
+            <rep:desc>ADT Zerorated Analysis</rep:desc>
+            <rep:arname>تقرير الرسم الإضافي الفئة الصفرية</rep:arname>
+            <rep:ardesc>تقرير الرسم الإضافي الفئة الصفرية</rep:ardesc>
         </rep:report>
         <rep:report>
             <rep:repid>12</rep:repid>
