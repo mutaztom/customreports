@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="expcommod" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Key" uuid="8f5b312e-ad06-44c2-bb06-206ef15b4fc2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="oracustom"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA[System.getenv("CUSTREPDATA")+"/reports/rtstyle.jrtx"]]></template>
+	<parameter name="startdate" class="java.sql.Date"/>
+	<parameter name="enddate" class="java.sql.Date"/>
+	<parameter name="title" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Export Commodity By Group"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+gen_itm_tar_tax_rel.Prod_H6_2,sum(VIT_WGT_NET) "Weight",sum(VIT_CIF/VGS_INV_CUR_RAT)/1000 "Custom Value USD"
+from
+(select SAD_TAX.TAX_LIN_BSE TAX_LIN_BSE,
+SAD_TAX.TAX_LIN_AMT TAX_LIN_AMT,
+  SAD_TAX.KEY_ITM_NBR KEY_ITM_NBR,
+  gen_itm_TAR.INSTANCEID INSTANCEID,
+  gen_itm_TAR.VIT_CIF VIT_CIF,
+  gen_itm_TAR.VIT_WGT_NET VIT_WGT_NET,
+  gen_itm_TAR.VGS_INV_CUR_RAT VGS_INV_CUR_RAT,
+  gen_itm_TAR.VIT_INV_AMT_FCX VIT_INV_AMT_FCX,
+  gen_itm_TAR.TAR_T01 TAR_T01,
+  gen_itm_TAR.CUR_NRAT CUR_NRAT,
+  gen_itm_TAR.TAR_T02 TAR_T02,
+  gen_itm_TAR.TAR_T03 TAR_T03,
+  gen_itm_TAR.Prod_H6_2 Prod_H6_2,
+  gen_itm_TAR.HS6_COD HS6_COD
+from
+(select UNTARTAB.TAR_T01 TAR_T01 ,
+        UNTARTAB.TAR_T02 TAR_T02,
+        UNTARTAB.TAR_T03 TAR_T03,
+        UNTARTAB.HS6_COD HS6_COD,
+        UNTARTAB.HS6_COD||UNTARTAB.TAR_PR1 Prod_H6_2,
+              INSTANCEID,
+              CUR_NRAT,
+             VGS_INV_CUR_RAT,
+             KEY_ITM_NBR,
+            VIT_WGT_NET,
+            VIT_CIF ,
+            VIT_INV_AMT_FCX ,
+            VIT_INV_CUR_RAT ,
+            TAR_HSC_NB1 ,
+            TAR_HSC_NB2
+from (      select
+            gen_seg.INSTANCEID INSTANCEID,
+decode (gen_seg.VGS_INV_CUR_RAT,gen_seg.VGS_INV_CUR_RAT,(select
+                            AWCURUPDATE_ITM.CUR_NRAT  CUR_NRAT
+                            from
+                             AWCURUPDATE_ITM,
+                             AWCURUPDATE_GEN
+                            Where
+                              AWCURUPDATE_ITM.INSTANCE_ID = AWCURUPDATE_GEN.INSTANCE_ID
+                              and AWCURUPDATE_ITM.CUR_COD ='USD'
+                              and AWCURUPDATE_GEN.VDAT =
+                                 (select
+                              max(AWCURUPDATE_GEN.VDAT) MVDAT
+                            from
+                             AWCURUPDATE_ITM,
+                             AWCURUPDATE_GEN
+                            Where
+                              AWCURUPDATE_ITM.INSTANCE_ID = AWCURUPDATE_GEN.INSTANCE_ID
+                              and AWCURUPDATE_ITM.CUR_COD ='USD'
+and AWCURUPDATE_GEN.VDAT <$P{enddate})
+and rownum=1)) VGS_INV_CUR_RAT,
+            gen_seg.CUR_NRAT,
+            SAD_ITEM.KEY_ITM_NBR KEY_ITM_NBR,
+            SAD_ITEM.VIT_WGT_NET VIT_WGT_NET,
+            SAD_ITEM.VIT_CIF VIT_CIF,
+            SAD_ITEM.VIT_INV_AMT_FCX VIT_INV_AMT_FCX,
+            SAD_ITEM.VIT_INV_CUR_RAT VIT_INV_CUR_RAT,
+            SAD_ITEM.TAR_HSC_NB1 TAR_HSC_NB1,
+            SAD_ITEM.TAR_HSC_NB2 TAR_HSC_NB2
+                       from
+            (select SAD_GENERAL_SEGMENT.INSTANCEID INSTANCEID,SAD_GENERAL_SEGMENT.VGS_INV_CUR_RAT VGS_INV_CUR_RAT,gen_cur.CUR_NRAT CUR_NRAT
+                  from
+                     (select SAD_GENERAL_SEGMENT.INSTANCEID INSTANCEID ,max(VDAT) MVDAT
+                             ,cur_tab.CUR_NRAT CUR_NRAT
+                      from (select
+                            AWCURUPDATE_ITM.CUR_NRAT CUR_NRAT,
+                            AWCURUPDATE_GEN.VDAT VDAT
+                            from
+                             AWCURUPDATE_ITM,
+                             AWCURUPDATE_GEN
+                            Where
+                              AWCURUPDATE_ITM.INSTANCE_ID = AWCURUPDATE_GEN.INSTANCE_ID
+                              and AWCURUPDATE_ITM.CUR_COD ='USD'
+                      union select 15, sysdate
+                             from dual
+                      ) Cur_Tab , SAD_GENERAL_SEGMENT
+                       where  SAD_GENERAL_SEGMENT.IDE_RCP_DAT <= Cur_Tab.VDAT and
+                                SAD_GENERAL_SEGMENT.IDE_TYP_PRC=1 and
+                              SAD_GENERAL_SEGMENT.IDE_RCP_DAT  between $P{startdate} and $P{enddate} and
+                              SAD_GENERAL_SEGMENT.IDE_REG_NBR is not null and
+                              SAD_GENERAL_SEGMENT.IDE_REG_SER is not null
+                      group by SAD_GENERAL_SEGMENT.INSTANCEID,cur_tab.CUR_NRAT) gen_cur, SAD_GENERAL_SEGMENT
+                       where   SAD_GENERAL_SEGMENT.INSTANCEID = gen_cur.INSTANCEID ) gen_seg, SAD_ITEM
+        where
+            gen_seg.INSTANCEID=+SAD_ITEM.INSTANCEID)gen_item,UNTARTAB
+where gen_item.TAR_HSC_NB1||gen_item.TAR_HSC_NB2=+UNTARTAB.HS6_COD||UNTARTAB.TAR_PR1||UNTARTAB.TAR_PR2
+and UNTARTAB.VALID_TO is null)gen_itm_TAR , SAD_TAX
+where (SAD_TAX.INSTANCEID||SAD_TAX.KEY_ITM_NBR =+ gen_itm_TAR.INSTANCEID||gen_itm_TAR.KEY_ITM_NBR
+)) gen_itm_tar_tax_rel
+group by gen_itm_tar_tax_rel.Prod_H6_2]]>
+	</queryString>
+	<field name="PROD_H6_2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PROD_H6_2"/>
+	</field>
+	<field name="Weight" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Weight"/>
+	</field>
+	<field name="Custom Value USD" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Custom Value USD"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<textField>
+				<reportElement style="rtstyle" x="72" y="65" width="410" height="30" uuid="a5410cf4-6642-42ef-9a64-f1eabfefbdde"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" onErrorType="Icon">
+				<reportElement style="rtstyle" x="30" y="0" width="469" height="60" uuid="41914358-023d-4428-85c3-7f60f266ed8a"/>
+				<imageExpression><![CDATA[System.getenv("CUSTREPDATA")+"/reports/header.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement style="rtstyle" x="50" y="10" width="100" height="19" uuid="9e44da9e-58e7-4148-bf96-35a14823a612"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="rtstyle" x="0" y="10" width="50" height="19" uuid="bf9c54fb-c754-4932-9397-b1b20e74ee86"/>
+				<textFieldExpression><![CDATA[$R{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<staticText>
+				<reportElement style="rtstyle" mode="Opaque" x="0" y="0" width="185" height="20" backcolor="#D6CECE" uuid="71e1c121-61da-43d7-aba7-1a4a855a0e8b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b44777b-12cc-4909-bd93-d4e60f273762"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="rtstyle" mode="Opaque" x="185" y="0" width="185" height="20" backcolor="#D6CECE" uuid="f4eca355-4eae-42a5-8c40-b3f26411639e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d93b6eea-5051-4c0d-80b8-2ec3c0cb7429"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Weight]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="rtstyle" mode="Opaque" x="370" y="0" width="185" height="20" backcolor="#D6CECE" uuid="82822f8c-f206-4d3e-89ad-db3918911987">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd0aecd7-9add-45b0-a31b-4943b068ab2e"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Custom Value USD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<textField>
+				<reportElement style="rtstyle" x="0" y="0" width="185" height="21" uuid="2e8aaec9-5067-43cd-9cb9-445c18a9d0b6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b44777b-12cc-4909-bd93-d4e60f273762"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{PROD_H6_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement style="rtstyle" x="185" y="0" width="185" height="21" uuid="a08554c3-0127-4f96-b483-ae691b6c4bcb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d93b6eea-5051-4c0d-80b8-2ec3c0cb7429"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Weight}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#-">
+				<reportElement style="rtstyle" x="370" y="0" width="185" height="21" uuid="4c638e8f-e338-48dd-98a5-09817b0411e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd0aecd7-9add-45b0-a31b-4943b068ab2e"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Custom Value USD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="200" y="2" width="164" height="19" uuid="302d065f-9559-4d34-a5b4-48990a2bde57"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

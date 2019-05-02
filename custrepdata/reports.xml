@@ -14,7 +14,7 @@ and open the template in the editor.
             <rep:repname>imfullimduty</rep:repname>
             <rep:arname>التقرير الكلي لرسم الوارد لصندوق النقد الدولي</rep:arname>
             <rep:desc>International Monetry Fund All Duties</rep:desc>
-            <rep:ardesc>التقرير الكلي لرسم الوارد لصندوق النقد الدولي</rep:ardesc>
+            <rep:ardesc> التقرير الكلي لرسم الوارد لصندوق النقد الدولي بالسلعة</rep:ardesc>
         </rep:report>
         <rep:report hasOption="false">
             <rep:repid>2</rep:repid>
@@ -34,11 +34,11 @@ and open the template in the editor.
         </rep:report>
         <rep:report hasOption="false">
             <rep:repid>4</rep:repid>
-            <rep:title>IMD Zero Rated BreakDown</rep:title>
-            <rep:repname>imdzeroratedbdn</rep:repname>
-            <rep:desc>IMD Losses grouped by Causes</rep:desc>
-            <rep:arname>تقرير الفاقد الإيرادي لرسم الوارد بالأسباب</rep:arname>
-            <rep:ardesc>تقرير الفاقد الإيرادي لرسم الوارد بالأسباب</rep:ardesc>
+            <rep:title>IMD Cause of Loss</rep:title>
+            <rep:repname>imdcauseofloss</rep:repname>
+            <rep:desc>IMD Cause of Loss</rep:desc>
+            <rep:arname>الفاقد الإيرادي لرسم الوارد</rep:arname>
+            <rep:ardesc>الفاقد الإيرادي لرسم الوارد</rep:ardesc>
         </rep:report>
         <rep:report hasOption="false">
             <rep:repid>5</rep:repid>

@@ -25,7 +25,7 @@ vsvatimports;قيمة الواردات الخاضعة لضريبة القيمة 
 vatexpimports;الإعفاءات من ضريبة القيمة المضافة;report
 atdimported;الرسم الإضافي على السلع المستوردة;report
 exmptedvatrev;قيمة الواردات العفاة من الرسم الإضافي و الإعفاءات الممنوحة;report
-expcommod;سلع الصادر(بالمجموعة السلعية);report
+expcommod;سلع الصادر(بالمجموعة السلعية;report
 expcommodbyprod;سلع الصادر (بالسلعة);report
 tbcompareyear;الميزان التجاري بين السنة الحالية و السنة الماضية (لشهر معين);report
 genfinanperformance;الأداء المالي العام;report
