@@ -10,51 +10,18 @@
 		<defaultValueExpression><![CDATA[$P{JASPER_REPORT}.getName()]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[select 
-gen_itm_tar_tax_rel.Prod_H6_2 "GRP_desc",sum(VIT_CIF/VGS_INV_CUR_RAT) "USD",sum(VIT_CIF/CUR_NRAT) "Custom Value USD"
-from 
-(select SAD_TAX.TAX_LIN_BSE TAX_LIN_BSE,
-SAD_TAX.TAX_LIN_AMT TAX_LIN_AMT,
-  SAD_TAX.KEY_ITM_NBR KEY_ITM_NBR, 
-  gen_itm_TAR.INSTANCEID INSTANCEID,
-  gen_itm_TAR.VIT_CIF VIT_CIF,
-  gen_itm_TAR.VIT_WGT_NET VIT_WGT_NET,
-  gen_itm_TAR.VGS_INV_CUR_RAT VGS_INV_CUR_RAT,
-  gen_itm_TAR.VIT_INV_AMT_FCX VIT_INV_AMT_FCX,
-  gen_itm_TAR.TAR_T01 TAR_T01,
-  gen_itm_TAR.CUR_NRAT CUR_NRAT,
-  gen_itm_TAR.TAR_T02 TAR_T02,
-  gen_itm_TAR.TAR_T03 TAR_T03,
-  gen_itm_TAR.Prod_H6_2 Prod_H6_2,
-  gen_itm_TAR.HS6_COD HS6_COD
-from 
-(select UNTARTAB.TAR_T01 TAR_T01 ,
-        UNTARTAB.TAR_T02 TAR_T02,
-        UNTARTAB.TAR_T03 TAR_T03,
-        UNTARTAB.HS6_COD HS6_COD,
-        UNTARTAB.HS6_COD||UNTARTAB.TAR_PR1 Prod_H6_2,
-              INSTANCEID,
-              CUR_NRAT,
-             VGS_INV_CUR_RAT,
-             KEY_ITM_NBR,
-            VIT_WGT_NET,
-            VIT_CIF ,  
-            VIT_INV_AMT_FCX ,
-            VIT_INV_CUR_RAT , 
-            TAR_HSC_NB1 ,
-            TAR_HSC_NB2
-from (      select
-            gen_seg.INSTANCEID INSTANCEID,
-decode (gen_seg.VGS_INV_CUR_RAT,gen_seg.VGS_INV_CUR_RAT,(select 
+		<![CDATA[SELECT ALL AWUNADM.GEN_ITM_TAX.N_H6, SUM(AWUNADM.GEN_ITM_TAX.VIT_WGT_NET) "Net Mass (Kg)", 
+SUM(AWUNADM.GEN_ITM_TAX.VIT_CIF) "Custom Value (SDG)", SUM(AWUNADM.GEN_ITM_TAX.VIT_CIF/decode (AWUNADM.GEN_ITM_TAX.VGS_INV_CUR_RAT,AWUNADM.GEN_ITM_TAX.VGS_INV_CUR_RAT,(select 
                             AWCURUPDATE_ITM.CUR_NRAT  CUR_NRAT
-                            from    
-                             AWCURUPDATE_ITM,
-                             AWCURUPDATE_GEN
+                                        from    
+                                         AWCURUPDATE_ITM,
+                                         AWCURUPDATE_GEN
                             Where    
                               AWCURUPDATE_ITM.INSTANCE_ID = AWCURUPDATE_GEN.INSTANCE_ID 
                               and AWCURUPDATE_ITM.CUR_COD ='USD'
                               and AWCURUPDATE_GEN.VDAT =
                                  (select 
+                            --AWCURUPDATE_ITM.CUR_NRAT CUR_NRAT,
                               max(AWCURUPDATE_GEN.VDAT) MVDAT
                             from    
                              AWCURUPDATE_ITM,
@@ -63,56 +30,27 @@ decode (gen_seg.VGS_INV_CUR_RAT,gen_seg.VGS_INV_CUR_RAT,(select
                               AWCURUPDATE_ITM.INSTANCE_ID = AWCURUPDATE_GEN.INSTANCE_ID 
                               and AWCURUPDATE_ITM.CUR_COD ='USD'
 and AWCURUPDATE_GEN.VDAT <$P{enddate})
-and rownum=1)) VGS_INV_CUR_RAT,
-            gen_seg.CUR_NRAT,
-            SAD_ITEM.KEY_ITM_NBR KEY_ITM_NBR,
-            SAD_ITEM.VIT_WGT_NET VIT_WGT_NET,
-            SAD_ITEM.VIT_CIF VIT_CIF,  
-            SAD_ITEM.VIT_INV_AMT_FCX VIT_INV_AMT_FCX,
-            SAD_ITEM.VIT_INV_CUR_RAT VIT_INV_CUR_RAT, 
-            SAD_ITEM.TAR_HSC_NB1 TAR_HSC_NB1,
-            SAD_ITEM.TAR_HSC_NB2 TAR_HSC_NB2
-                       from
-            (select SAD_GENERAL_SEGMENT.INSTANCEID INSTANCEID,SAD_GENERAL_SEGMENT.VGS_INV_CUR_RAT VGS_INV_CUR_RAT,gen_cur.CUR_NRAT CUR_NRAT
-                  from
-                     (select SAD_GENERAL_SEGMENT.INSTANCEID INSTANCEID ,max(VDAT) MVDAT
-                             ,cur_tab.CUR_NRAT CUR_NRAT
-                      from (select 
-                            AWCURUPDATE_ITM.CUR_NRAT CUR_NRAT,
-                            AWCURUPDATE_GEN.VDAT VDAT
-                            from    
-                             AWCURUPDATE_ITM,
-                             AWCURUPDATE_GEN
-                            Where    
-                              AWCURUPDATE_ITM.INSTANCE_ID = AWCURUPDATE_GEN.INSTANCE_ID 
-                              and AWCURUPDATE_ITM.CUR_COD ='USD'
-                      union select 15, sysdate
-                             from dual
-                      ) Cur_Tab , SAD_GENERAL_SEGMENT
-                       where  SAD_GENERAL_SEGMENT.IDE_RCP_DAT <= Cur_Tab.VDAT and
-                              SAD_GENERAL_SEGMENT.IDE_TYP_PRC=4 and 
-                              SAD_GENERAL_SEGMENT.IDE_RCP_DAT  between $P{startdate} and $P{enddate} and 
-                              SAD_GENERAL_SEGMENT.IDE_REG_NBR is not null and
-                              SAD_GENERAL_SEGMENT.IDE_REG_SER is not null 
-                      group by SAD_GENERAL_SEGMENT.INSTANCEID,cur_tab.CUR_NRAT) gen_cur, SAD_GENERAL_SEGMENT
-                       where   SAD_GENERAL_SEGMENT.INSTANCEID = gen_cur.INSTANCEID ) gen_seg, SAD_ITEM
-        where
-            gen_seg.INSTANCEID=+SAD_ITEM.INSTANCEID)gen_item,UNTARTAB 
-where gen_item.TAR_HSC_NB1||gen_item.TAR_HSC_NB2=+UNTARTAB.HS6_COD||UNTARTAB.TAR_PR1||UNTARTAB.TAR_PR2
-and UNTARTAB.VALID_TO is null)gen_itm_TAR , SAD_TAX
-where (SAD_TAX.INSTANCEID||SAD_TAX.KEY_ITM_NBR =+ gen_itm_TAR.INSTANCEID||gen_itm_TAR.KEY_ITM_NBR
-and SAD_TAX.TAX_LIN_COD='VAT' )) gen_itm_tar_tax_rel 
-where gen_itm_tar_tax_rel.TAR_T01='0'
-group by gen_itm_tar_tax_rel.Prod_H6_2]]>
+and rownum=1))) "Custom Value (USD)"
+FROM AWUNADM.GEN_ITM_TAX, AWUNADM.N_UNTARTAB
+WHERE (AWUNADM.GEN_ITM_TAX.IDE_RCP_DAT BETWEEN $P{startdate} AND $P{enddate}
+ AND AWUNADM.GEN_ITM_TAX.IDE_TYP_PRC=4
+ AND AWUNADM.GEN_ITM_TAX.TAX_LIN_COD='VAT'
+ AND AWUNADM.N_UNTARTAB.TAR_T01='0'
+ AND AWUNADM.N_UNTARTAB.VALID_TO IS NULL)
+ AND  (AWUNADM.GEN_ITM_TAX.N_H6=AWUNADM.N_UNTARTAB.N_T_H6)
+GROUP BY AWUNADM.GEN_ITM_TAX.N_H6]]>
 	</queryString>
-	<field name="GRP_desc" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="GRP_desc"/>
+	<field name="N_H6" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="N_H6"/>
 	</field>
-	<field name="USD" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="USD"/>
+	<field name="Net Mass (Kg)" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Net Mass (Kg)"/>
 	</field>
-	<field name="Custom Value USD" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="Custom Value USD"/>
+	<field name="Custom Value (SDG)" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Custom Value (SDG)"/>
+	</field>
+	<field name="Custom Value (USD)" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Custom Value (USD)"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -150,8 +88,8 @@ group by gen_itm_tar_tax_rel.Prod_H6_2]]>
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 			<staticText>
-				<reportElement style="rtstyle" mode="Opaque" x="0" y="0" width="185" height="20" backcolor="#C7BFBF" uuid="88f5903d-32d2-4c16-b21e-0daee22572f1">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="905da7b4-9660-4403-99b1-cabf3c7f168e"/>
+				<reportElement style="rtstyle" mode="Opaque" x="0" y="0" width="141" height="20" backcolor="#DBD7D7" uuid="05dab5bb-3da5-4dc1-adf3-dcba829fa891">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a600ac04-df9d-4ee5-8756-7113dde982e1"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -159,14 +97,12 @@ group by gen_itm_tar_tax_rel.Prod_H6_2]]>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[GRP_desc]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[N_H6]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="rtstyle" mode="Opaque" x="185" y="0" width="185" height="20" backcolor="#C7BFBF" uuid="37f64fc1-0108-426e-82de-ec4630b3ee4f">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe4cd9da-ae6a-48f4-8465-4cecb5eaa2b3"/>
+				<reportElement style="rtstyle" mode="Opaque" x="141" y="0" width="138" height="20" backcolor="#DBD7D7" uuid="faf473b2-14bd-46c0-a71e-8f041dea343a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94053d6b-af58-479c-a504-3e8402f5d1ba"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -174,14 +110,12 @@ group by gen_itm_tar_tax_rel.Prod_H6_2]]>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[USD]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Net Mass (Kg)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="rtstyle" mode="Opaque" x="370" y="0" width="185" height="20" backcolor="#C7BFBF" uuid="9be4bb3d-430c-4d04-bb0a-1baf65d0aba8">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="89239fb3-6056-4daa-8037-6e05f9bac791"/>
+				<reportElement style="rtstyle" mode="Opaque" x="279" y="0" width="138" height="20" backcolor="#DBD7D7" uuid="c72f13b6-cd15-46a4-891f-861a008e68da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b2a3e317-837c-4c6b-a300-969a6423696f"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -189,19 +123,30 @@ group by gen_itm_tar_tax_rel.Prod_H6_2]]>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Custom Value USD]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Custom Value (SDG)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="rtstyle" mode="Opaque" x="417" y="0" width="138" height="20" backcolor="#DBD7D7" uuid="0fd7d123-fda4-4eb2-bb9b-fb20a3d6e40d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9bd1de83-6634-4771-af49-a3ec857f0a19"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Custom Value (USD)]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="18" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 			<textField>
-				<reportElement style="rtstyle" x="0" y="0" width="185" height="20" uuid="c48441d4-7c38-41ed-a7ca-076027aa5424">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="905da7b4-9660-4403-99b1-cabf3c7f168e"/>
+				<reportElement style="rtstyle" x="0" y="0" width="141" height="18" uuid="58f5bcb5-ee01-40b5-b8a2-fd6a53380dc7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a600ac04-df9d-4ee5-8756-7113dde982e1"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -209,11 +154,11 @@ group by gen_itm_tar_tax_rel.Prod_H6_2]]>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{GRP_desc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{N_H6}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="rtstyle" x="185" y="0" width="185" height="20" uuid="ca665003-787d-4c78-81b5-89e9644fcd52">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe4cd9da-ae6a-48f4-8465-4cecb5eaa2b3"/>
+				<reportElement style="rtstyle" x="141" y="0" width="138" height="18" uuid="f44fcce1-b4e6-4466-8918-09b9d4b9ee06">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94053d6b-af58-479c-a504-3e8402f5d1ba"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -221,11 +166,11 @@ group by gen_itm_tar_tax_rel.Prod_H6_2]]>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{USD}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Net Mass (Kg)}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="rtstyle" x="370" y="0" width="185" height="20" uuid="1e8ba0df-1811-4b38-8e3e-d281a5dba11c">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="89239fb3-6056-4daa-8037-6e05f9bac791"/>
+				<reportElement style="rtstyle" x="279" y="0" width="138" height="18" uuid="c60e49a8-f6b0-4409-aadb-3e42a96b8dc7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b2a3e317-837c-4c6b-a300-969a6423696f"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -233,7 +178,19 @@ group by gen_itm_tar_tax_rel.Prod_H6_2]]>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{Custom Value USD}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Custom Value (SDG)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="rtstyle" x="417" y="0" width="138" height="18" uuid="0c02a31b-6fdd-4ca6-b2ed-655d735d6539">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9bd1de83-6634-4771-af49-a3ec857f0a19"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Custom Value (USD)}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
